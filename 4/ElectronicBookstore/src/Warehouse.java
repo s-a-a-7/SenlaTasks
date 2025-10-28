@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Warehouse {
-    private List<Book> books = new ArrayList<>();
+    private final List<Book> books = new ArrayList<>();
 
     public boolean isBookExist(Book book){
-        return books.contains(book);
+        return books.contains(book) && book.getStatus();
     }
 
     public void addBook(Book book){

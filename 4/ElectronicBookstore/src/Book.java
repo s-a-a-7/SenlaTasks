@@ -21,6 +21,11 @@ public class Book {
         return quantity;
     }
     public void changeQuantity(int num) {
-        this.quantity += num;
+        if (quantity > 0){
+            this.quantity += num;
+        }
+        if (quantity == 0){
+            this.status = false;
+        }
     }
 }

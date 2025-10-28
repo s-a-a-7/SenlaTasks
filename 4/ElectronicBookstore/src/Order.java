@@ -1,5 +1,5 @@
 public class Order {
-    private String status;
+    private String status = "не оформлен";
 
     public String getStatus() {
         return status;
