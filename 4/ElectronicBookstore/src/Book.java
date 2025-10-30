@@ -1,0 +1,38 @@
+public class Book {
+    private final String name;
+    private boolean status = true;
+    private int quantity = 1;
+
+    public Book(String name){
+        this.name = name;
+    }
+    public String getName(){
+        return name;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    public void changeQuantity(int num) {
+        this.quantity += num;
+
+        if (quantity < 0){
+            this.quantity = 0;
+        }
+
+        if (quantity == 0){
+            this.status = false;
+        }
+
+        if (!status && num > 0) {
+            this.status = true;
+        }
+    }
+}
