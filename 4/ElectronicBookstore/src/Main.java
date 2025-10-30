@@ -9,18 +9,20 @@ public static void main(String[] args){
     warehouse.addBook(book2);
     warehouse.addBook(book3);
 
-//    for (int i = 0; i < )
-//    System.out.println(warehouse.getBooks() + "\n");
-
+    warehouse.printBooks();
 
     Request request = new Request();
     request.addRequest(book1, warehouse);
     request.addRequest(book2, warehouse);
+    request.addRequest(book2, warehouse);
+    request.addRequest(book2, warehouse);
     request.addRequest(book3, warehouse);
     request.addRequest(book3, warehouse);
 
-    System.out.println("\n");
-    System.out.println(book1.getName() + " " + book1.getStatus() + " " + book1.getQuantity());
-    System.out.println(book2.getName() + " " + book2.getStatus() + " " + book2.getQuantity());
-    System.out.println(book3.getName() + " " + book3.getStatus() + " " + book3.getQuantity());
+    warehouse.addBook(book3);
+
+    request.recheckRequest(book2, warehouse);
+    request.recheckRequest(book3, warehouse);
+
+    warehouse.printBooks();
 }
