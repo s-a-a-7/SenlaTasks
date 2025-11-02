@@ -5,8 +5,8 @@ public class Book {
     private int year;
     private int price;
 
-    private int quantity;
     private boolean status;
+    private int quantity;
 
     private int quantRequest;
 
@@ -25,8 +25,23 @@ public class Book {
         this.year = year;
         this.price = price;
     }
+
     public String getName(){
         return name;
+    }
+
+    public int getYear() {
+        return year;
+    }
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public boolean getStatus() {
@@ -50,19 +65,28 @@ public class Book {
         }
     }
 
-    public void setDateReceive() {
-        this.dateReceive = new Date();
+    public int getQuantRequest() {
+        return quantRequest;
     }
-
-    public void setDateSeil() {
-        this.dateSeil = new Date();
-    }
-
     public void changeQuantRequest(boolean flag){
         if (flag){
             quantRequest --;
         } else{
             quantRequest ++;
         }
+    }
+
+    public Date getDateReceive() {
+        return dateReceive;
+    }
+    public void setDateReceive() {
+        this.dateReceive = new Date();
+    }
+
+    public Date getDateSeil() {
+        return dateSeil;
+    }
+    public void setDateSeil() {
+        this.dateSeil = new Date();
     }
 }
