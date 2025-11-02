@@ -1,7 +1,13 @@
 public class Book {
     private final String name;
-    private boolean status = true;
-    private int quantity = 1;
+    private int quantity;
+    private boolean status;
+
+    {
+        quantity = 0;
+        status = true;
+
+    }
 
     public Book(String name){
         this.name = name;
@@ -23,16 +29,11 @@ public class Book {
     public void changeQuantity(int num) {
         this.quantity += num;
 
-        if (quantity < 0){
-            this.quantity = 0;
-        }
-
-        if (quantity == 0){
-            this.status = false;
-        }
-
-        if (!status && num > 0) {
+        if (quantity > 0){
             this.status = true;
+        } else{
+            this.status = false;
+            quantity = 0;
         }
     }
 }

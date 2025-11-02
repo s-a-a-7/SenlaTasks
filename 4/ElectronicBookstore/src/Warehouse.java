@@ -15,6 +15,7 @@ public class Warehouse {
         }
         else{
             System.out.println("добавлена новая книга: " + "«" + book.getName() +  "»");
+            book.changeQuantity(1);
             books.add(book);
         }
     }
