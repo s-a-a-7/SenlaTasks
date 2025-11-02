@@ -1,7 +1,7 @@
 public static void main(String[] args){
-    Book book1 = new Book("Шерлок Хомс");
-    Book book2 = new Book("Зло под солнцем");
-    Book book3 = new Book("Убийство по алфавиту");
+    Book book1 = new Book("Шерлок Хомс", 2021, 400);
+    Book book2 = new Book("Зло под солнцем", 2021, 390);
+    Book book3 = new Book("Убийство по алфавиту", 2022, 390);
 
     Warehouse warehouse = new Warehouse();
     warehouse.addBook(book1);
