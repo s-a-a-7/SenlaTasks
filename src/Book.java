@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.Date;
 
 public class Book {
@@ -15,7 +16,7 @@ public class Book {
 
     {
         quantity = 0;
-        status = true;
+        status = false;
 
         quantRequest = 0;
     }
@@ -88,5 +89,30 @@ public class Book {
     }
     public void setDateSeil() {
         this.dateSeil = new Date();
+    }
+}
+
+class BookNameComparator implements Comparator<Book> {
+    @Override
+    public int compare(Book a, Book b){
+        return a.getName().compareTo(b.getName());
+    }
+}
+class BookYearComparator implements Comparator<Book>{
+    @Override
+    public int compare(Book a, Book b){
+        return a.getYear()- b.getYear();
+    }
+}
+class BookPriceComparator implements Comparator<Book>{
+    @Override
+    public int compare(Book a, Book b){
+        return a.getPrice() - b.getPrice();
+    }
+}
+class BookStatusComparator implements Comparator<Book>{
+    @Override
+    public int compare(Book a, Book b){
+        return (a.getStatus() == b.getStatus()) ? 0 : (a.getStatus() ? 1 : -1);
     }
 }
