@@ -70,7 +70,7 @@ public class Book {
         return quantRequest;
     }
     public void changeQuantRequest(boolean flag){
-        if (flag){
+        if (!flag){
             quantRequest --;
         } else{
             quantRequest ++;
