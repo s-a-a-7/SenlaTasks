@@ -3,61 +3,76 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Request {
-    private boolean statusRequest = false;
+    private boolean existRequest;
 
     private List<Book> requestList = new ArrayList<>();
 
-    Order order = new Order();
+    public void addRequest(Book book, Warehouse warehouse, OrderList orderList){
+        existRequest = false;
 
-    public void addRequest(Book book, Warehouse warehouse){
-        order.addOrder(order, book);
+        Order order = new Order();
+        order.setStatus("новый");
+        orderList.addOrder(order, book);
         System.out.println(order.getStatus() + " заказ на книгу: " + "«" + book.getName() +  "»");
 
         if (warehouse.isBookExist(book) && book.getStatus()){
             book.changeQuantity(-1);
 
-            order.completeOrder(order);
+            order.changeOrder(existRequest);
+            orderList.addOrderCompleted(order, book);
             System.out.println("заказ " + order.getStatus());
         }
         else{
             System.out.println("книга отстутствует, сформирован запрос на книгу");
-            this.statusRequest = true;
+            existRequest = true;
+            order.changeOrder(existRequest);
 
             if (requestList.contains(book)){
-                requestList.add(book);
-                book.changeQuantRequest(statusRequest);
+                book.changeQuantRequest(existRequest);
             }
             else{
-                book.changeQuantRequest(statusRequest);
+                requestList.add(book);
+                book.changeQuantRequest(existRequest);
             }
-
         }
     }
 
-    public void deleteRequest(Book book, Warehouse warehouse){
-        statusRequest = false;
+    public void deleteRequest(Book book, Warehouse warehouse, OrderList orderList){
+        existRequest = false;
+
+        int i = orderList.getOrdersBook().indexOf(book);
+        Order order = orderList.getOrders().get(i);
+
         order.setStatus("отменен");
         System.out.println("заказ " + order.getStatus());
+
         book.changeQuantity(1);
     }
 
-    public void recheckRequest(Book book, Warehouse warehouse){
-        if (statusRequest){
-            if (warehouse.isBookExist(book) && book.getStatus()){
-                statusRequest = false;
-                book.changeQuantRequest(statusRequest);
+public void recheckRequest(Book book, Warehouse warehouse, OrderList orderList){
+    if (warehouse.isBookExist(book) && book.getStatus()){
+        for (Order order : orderList.getOrders()){
+            existRequest = true;
+
+            if (order.getStatus().equals("в процессе")){
+                existRequest = false;
+                book.changeQuantRequest(existRequest);
 
                 System.out.println("книга " + "«" + book.getName() +  "»" + " появилась");
+                book.changeQuantRequest(existRequest);
                 book.changeQuantity(-1);
 
-                order.completeOrder(order);
-                System.out.println(order.getStatus() + " заказ на книгу: " + "«" + book.getName() +  "»");
-            }
-            else{
-                System.out.println("книга " + "«" + book.getName() +  "»" + " еще не появилась");
+                order.changeOrder(existRequest);
+                orderList.addOrderCompleted(order, book);
+                System.out.println("заказ " + order.getStatus());
             }
         }
+    }else{
+        if (book.getQuantRequest() > 0){
+            System.out.println("книга " + "«" + book.getName() +  "»" + " еще не появилась");
+        }
     }
+}
 
     public List<Book> getRequestList(){
         return requestList;
@@ -67,9 +82,10 @@ public class Request {
         System.out.println("▷ Список запросов на книги:");
         for (Book book : requestList) {
             System.out.print("   кол-во запросов: " + book.getQuantRequest());
-            System.out.print(" | на книгу: " + "«" + book.getName() +  "»");
+            System.out.print(" | книга: " + "«" + book.getName() +  "»");
+            System.out.println();
         }
-        System.out.println("\n");
+        System.out.println();
     }
 
 }
