@@ -32,11 +32,12 @@ public class Warehouse {
             System.out.print(" | год издания: " + book.getYear());
             System.out.print(" | цена: " + book.getPrice());
             if (book.getStatus()){
-                System.out.print(" | в наличии" + book.getQuantity());
+                System.out.print(" | в наличии " + book.getQuantity());
             } else{
                 System.out.print(" | нет в наличии");
             }
+            System.out.println();
         }
-        System.out.println("\n");
+        System.out.println();
     }
 }
