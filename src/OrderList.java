@@ -1,16 +1,22 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Random;
 
 public class OrderList {
     public static int amountMoney = 0;
     public static int numOrdersCompleted = 0;
+
+    private int orderNum = new Random().nextInt(1000);;
 
     public List<Order> orders = new ArrayList<>();
     public List<Book> ordersBook = new ArrayList<>();
     public List<Order> ordersCompleted = new ArrayList<>();
     public List<Book> ordersBookCompleted = new ArrayList<>();
 
+    public int getOrderNum() {
+        return orderNum;
+    }
 
     public void addOrder(Order order, Book book){
         orders.add(order);
@@ -63,6 +69,18 @@ public class OrderList {
                     " | цена: " + ordersBookCompleted.get(i).getPrice() +
                     " | статус: " + order.getStatus() +
                     " | книга: " + ordersBookCompleted.get(i).getName());
+            ++i;
+        }
+        System.out.println();
+    }
+
+    public void printOrdersBook(){
+        System.out.println();
+        int i = 0;
+        System.out.println("▷ Заказанные книги:");
+        for (Book book : ordersBook) {
+            System.out.println("   книга: " + book.getName() +
+                    " | статус: " + orders.get(i).getStatus());
             ++i;
         }
         System.out.println();
