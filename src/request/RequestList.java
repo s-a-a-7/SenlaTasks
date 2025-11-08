@@ -12,11 +12,29 @@ public class RequestList {
         requests = new ArrayList<>();
     }
 
-    public void addRequest(Request request, Book book, int numBooks){
-        request.setBook(book);
+    public void addRequest(Request request, Book book){
 
-        request.addRequest(numBooks);
+        if (requests.contains(request)){
 
-        requests.add(request);
+            request.addRequest();
+
+        } else{
+            request.setBook(book);
+
+            request.addRequest();
+
+            requests.add(request);
+        }
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void printRequests(){
+        System.out.println("\n▷ Список запросов:");
+        for (Request request : requests){
+            System.out.println(request.toString());
+        }
     }
 }
