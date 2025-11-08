@@ -1,12 +1,15 @@
 package order;
 
 import book.Book;
+import request.Request;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class Order {
+    private final int orderNum;
 
     private Status status;
 
@@ -20,18 +23,24 @@ public class Order {
     private final SimpleDateFormat df;
 
     private Book book;
+    private final Request request;
 
     {
-        df = new SimpleDateFormat("dd MMM yyyy HH:mm");
+        orderNum = new Random().nextInt(1000);
+
+        df = new SimpleDateFormat("dd MMMM yyyy HH:mm");
 
         timeDeliveryDays = 5;
         timeDeliveryHours = 17;
         timeDeliveryMinutes = 27;
+
+        request = new Request();
     }
 
-    private void setStatus(Status status) {
-        this.status = status;
+    public int getOrderNum() {
+        return orderNum;
     }
+
     public Status getStatus() {
         return status;
     }
@@ -41,6 +50,10 @@ public class Order {
     }
     public Book getBook() {
         return book;
+    }
+
+    public Request getRequest(){
+        return request;
     }
 
     private void setDateCreation(GregorianCalendar dateCreation) {
@@ -62,24 +75,22 @@ public class Order {
     }
 
     public void addOrder(){
-        setStatus(Status.NEW);
+        this.status = Status.NEW;
 
         setDateCreation(new GregorianCalendar());
     }
     public void cancelOrder(){
-        setStatus(Status.CANCEL);
+        this.status = Status.CANCEL;
+    }
 
-//        if (status == Status.DONE){
-//            book.changeBooksCount(book.getBooksCount(), true, false);
-//        } else if (status == Status.PROCESS) {
-//
-//        }
-    }
     public void processOrder(){
-        setStatus(Status.PROCESS);
+        this.status = Status.PROCESS;
     }
+
     public void completeOrder(){
-        setStatus(Status.DONE);
+        this.status = Status.DONE;
+
+        this.book.changeBooksCount(1, false, true);
 
         setDateCompletion(dateCreation);
         // добавляем время доставки
@@ -108,14 +119,14 @@ public class Order {
     public String toString() {
         String s;
         if (getStatus() == Status.DONE){
-            s = "выполнения :" + df.format(dateCompletion);
+            s = "выполнения: " + df.format(dateCompletion.getTime());
         }else {
-            s = "создания: " + df.format(dateCreation);
+            s = "создания: " + df.format(dateCreation.getTime());
         }
 
         return "   дата и время " + s +
                 " | цена: " + book.getPrice() +
                 " | статус: " + status +
-                " | книга: " + book.getTitle() + "\n";
+                " | книга: " + book.getTitle();
     }
 }
