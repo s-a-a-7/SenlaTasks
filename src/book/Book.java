@@ -46,7 +46,7 @@ public class Book {
         this.price = price;
     }
 
-    public boolean getIsExist() {
+    public boolean isExist() {
         return isExist;
     }
     public void setIsExist(boolean isExist) {
@@ -96,6 +96,6 @@ public class Book {
         return "    название: «" + title + "»" +
                 " | год издания: " + year +
                 " | цена: " + price +
-                isEx + "\n";
+                isEx;
     }
 }

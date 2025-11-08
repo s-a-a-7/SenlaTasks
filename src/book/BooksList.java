@@ -7,7 +7,7 @@ public class BooksList {
     private List<Book> books = new ArrayList<>();
 
     public boolean isBookExist(Book book){
-        return books.contains(book);
+        return books.contains(book) && book.isExist();
     }
 
     public void addBook(Book book, int numBooks){
@@ -23,11 +23,10 @@ public class BooksList {
         return books;
     }
 
-    public String toString(){
+    public void printBooksList(){
         System.out.println("\n▷ Наполняемость склада:");
         for(Book book : books){
-            return book.toString();
+            System.out.println(book.toString());
         }
-        return "";
     }
 }
