@@ -3,45 +3,72 @@ package bookstore;
 import book.Book;
 import book.BooksList;
 import order.Order;
-import order.OrdersList;
+import order.OrdersBunch;
+import order.Status;
 import request.Request;
 import request.RequestList;
 
-public class Bookstore {
-    private BooksList booksList;
-    private OrdersList ordersList;
-    private RequestList requestList;
+import java.util.List;
 
-    public void makeOrder(Book book, int numBooks){
+public class Bookstore {
+    private final BooksList booksList;
+    private final OrdersBunch ordersBunch;
+    private final RequestList requestList;
+
+    public Bookstore (BooksList booksList){
+        this.booksList = booksList;
+
+        ordersBunch = new OrdersBunch();
+        requestList = new RequestList();
+    }
+
+    public OrdersBunch getOrdersBunch() {
+        return ordersBunch;
+    }
+    public RequestList getRequestList() {
+        return requestList;
+    }
+
+    public int makeOrder(Book book){ // создать заказ
         Order order = new Order();
-        ordersList.addOrder(order, book);
+        ordersBunch.addOrder(order, book);
 
         if (booksList.isBookExist(book)){
 
-            if (book.getBooksCount() >= numBooks){
+            ordersBunch.addOrderCompleted(order);
 
-                ordersList.addOrderCompleted(order);
+        } else{
+            ordersBunch.addOrderProcess(order);
 
-                book.changeBooksCount(numBooks, false, true);
-            }else{
-
-            }
+            requestList.addRequest(order.getRequest(), book);
         }
 
+        return order.getOrderNum();
+    }
 
-        if (booksList.isBookExist(book) && book.getBooksCount() >= numBooks){
+    public void recheckRequests(){ // проверка появилась ли книга, на которую есть запрос
+        List<Order> ordersProcess = ordersBunch.getOrdersProcess().values().stream().toList();
+        for (Order order : ordersProcess) {
+            Request request = order.getRequest();
 
-            ordersList.addOrderCompleted(order);
-
-            book.changeBooksCount(numBooks, false, true);
-        } else{
-            Request request = new Request();
-            ordersList.addOrderProcess(order);
-
-            requestList.addRequest(request, book, numBooks);
+            if (booksList.isBookExist(order.getBook())) {
+                request.delRequest();
+                ordersBunch.delOrderProcess(order);
+            }
         }
     }
 
+    public void cancelOrder(Integer oderNum){ //отмена заказа
+        Order order = ordersBunch.getOrders().get(oderNum);
+        Status status = order.getStatus();
+        Request request = order.getRequest();
 
+        if (status == Status.DONE){
+            ordersBunch.cancelOrderCompleted(order);
+        } else if (status == Status.PROCESS) {
+            ordersBunch.cancelOrderProcess(order);
+            request.delRequest();
+        }
+    }
 
 }
