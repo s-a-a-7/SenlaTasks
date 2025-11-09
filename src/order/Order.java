@@ -98,6 +98,8 @@ public class Order {
 
     public void cancelOrder(){
         this.status = Status.CANCEL;
+
+        this.book.setIsSold(false);
     }
 
     public void processOrder(){
@@ -108,6 +110,7 @@ public class Order {
         this.status = Status.DONE;
 
         this.book.changeBooksCount(1, false, true);
+        this.book.setIsSold(true);
 
         setDateCompletion(dateCreation);
         // добавляем время доставки
