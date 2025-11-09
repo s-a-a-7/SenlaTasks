@@ -1,19 +1,27 @@
 package book;
 
+import java.time.LocalDate;
+
 public class Book {
     private final String title;
     private int year;
     private int price;
 
     private boolean isExist;
-    private int booksCount;
+    private boolean isSold;
 
+    private LocalDate arrivalDate;
+
+    private int booksCount;
     private int requestsCount;
 
     {
-        booksCount = 0;
         isExist = false;
+        isSold = false;
 
+        arrivalDate = LocalDate.now();
+
+        booksCount = 0;
         requestsCount = 0;
     }
 
@@ -47,7 +55,19 @@ public class Book {
     public void setIsExist(boolean isExist) {
         this.isExist = isExist;
     }
-// количество книг
+
+    public boolean isSold() {
+        return isSold;
+    }
+    public void setIsSold(boolean isSold) {
+        this.isSold = isSold;
+    }
+
+    public LocalDate getArrivalDate() {
+        return arrivalDate;
+    }
+
+    // количество книг
     public int getBooksCount() {
         return booksCount;
     }
