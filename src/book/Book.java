@@ -1,7 +1,5 @@
 package book;
 
-import java.util.Date;
-
 public class Book {
     private final String title;
     private int year;
@@ -11,9 +9,6 @@ public class Book {
     private int booksCount;
 
     private int requestsCount;
-
-//    private Date dateReceive;
-//    private Date dateSeil;
 
     {
         booksCount = 0;
@@ -52,7 +47,7 @@ public class Book {
     public void setIsExist(boolean isExist) {
         this.isExist = isExist;
     }
-
+// количество книг
     public int getBooksCount() {
         return booksCount;
     }
@@ -72,7 +67,7 @@ public class Book {
             booksCount = 0;
         }
     }
-
+// количесво запросов на книгу
     public int getRequestsCount() {
         return requestsCount;
     }
@@ -83,7 +78,7 @@ public class Book {
             requestsCount--;
         }
     }
-
+// toString
     @Override
     public String toString() {
         String isEx;
