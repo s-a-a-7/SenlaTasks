@@ -22,6 +22,6 @@ public class Request {
     @Override
     public String toString() {
         return "    книга: " + book.getTitle() +
-                " | кол-во запрсов: " + book.getRequestsCount() + "\n";
+                " | кол-во запрсов: " + book.getRequestsCount();
     }
 }
