@@ -70,6 +70,22 @@ public class Order {
         return dateCompletion.getTime();
     }
 
+    public int getTimeDeliveryDays() {
+        return timeDeliveryDays;
+    }
+    public int getTimeDeliveryHours() {
+        return timeDeliveryHours;
+    }
+    public int getTimeDeliveryMinutes() {
+        return timeDeliveryMinutes;
+    }
+
+    public void setTimeDelivery(int days, int hours, int minutes) {
+        this.timeDeliveryDays = days;
+        this.timeDeliveryHours = hours;
+        this.timeDeliveryMinutes = minutes;
+    }
+
     public SimpleDateFormat getDf() {
         return df;
     }
@@ -79,6 +95,7 @@ public class Order {
 
         setDateCreation(new GregorianCalendar());
     }
+
     public void cancelOrder(){
         this.status = Status.CANCEL;
     }
@@ -99,21 +116,6 @@ public class Order {
         this.dateCompletion.add(GregorianCalendar.MINUTE, getTimeDeliveryMinutes());
     }
 
-    public int getTimeDeliveryDays() {
-        return timeDeliveryDays;
-    }
-    public int getTimeDeliveryHours() {
-        return timeDeliveryHours;
-    }
-    public int getTimeDeliveryMinutes() {
-        return timeDeliveryMinutes;
-    }
-
-    public void setTimeDelivery(int days, int hours, int minutes) {
-        this.timeDeliveryDays = days;
-        this.timeDeliveryHours = hours;
-        this.timeDeliveryMinutes = minutes;
-    }
 
     @Override
     public String toString() {
@@ -124,7 +126,8 @@ public class Order {
             s = "создания: " + df.format(dateCreation.getTime());
         }
 
-        return "   дата и время " + s +
+        return "    номер: " + orderNum +
+                " | дата и время " + s +
                 " | цена: " + book.getPrice() +
                 " | статус: " + status +
                 " | книга: " + book.getTitle();
