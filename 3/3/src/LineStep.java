@@ -1,4 +1,7 @@
-public class LineStep implements ILineStep{
+import interfaces.ILineStep;
+import interfaces.IProductPart;
+
+public class LineStep implements ILineStep {
     String name;
 
     public LineStep(String name){

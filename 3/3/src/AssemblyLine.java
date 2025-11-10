@@ -1,4 +1,8 @@
-public class AssemblyLine implements IAssembleLine{
+import interfaces.IAssembleLine;
+import interfaces.IProduct;
+import interfaces.IProductPart;
+
+public class AssemblyLine implements IAssembleLine {
     @Override
     public IProduct assembleProduct(IProduct product) {
         System.out.println("Start of product assembly\n");
